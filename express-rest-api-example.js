@@ -1,7 +1,9 @@
 var bodyParser     = require("body-parser");
 var compression    = require("compression");
 var cors           = require("cors");
+var domain         = require("domain");
 var express        = require("express");
+var rest           = require("connect-rest");
 var slashes        = require("connect-slashes");
 var uncapitalize   = require("express-uncapitalize");
 
@@ -33,13 +35,22 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //  Enable CORS for just the /api directory
 app.use("/api", cors());
 
+//  API configuration
+var apiOptions = {
+    "context": "/api",
+    "domain": domain.create()
+};
+
+//  Link API into pipeline
+app.use(rest.rester(apiOptions));
+
 //  View all elements
-app.get("/api/elements", function(req, res) {
+rest.get("/elements", function(req, content, cb) {
     Element.find({}, function(err, elements) {
         if (err) {
-            return res.status(500).send("Error occurred: database error.");
+            return cb({ "error": "Internal error."});
         }
-        res.json(elements.map(function(element) {
+        cb(null, elements.map(function(element) {
             return {
                 "name": element.name,
                 "description": element.description
@@ -49,29 +60,28 @@ app.get("/api/elements", function(req, res) {
 });
 
 //  Post a new element
-app.post("/api/element", function(req, res) {
+rest.post("/element", function(req, content, cb) {
     var element = new Element({
         "name": req.body.name,
         "description": req.body.description
     });
     element.save(function(err, element) {
         if (err) {
-            return res.status(500).send("Error occurred: database error.");
+            return cb({ "error": "Unable to add element." });
         }
-        res.json({
-            "name": element.name,
-            "description": element.description
+        cb(null, {
+            "id": element._id
         });
     });
 });
 
 //  View a specific element
-app.get("/api/element/:id", function(req, res) {
+rest.get("/element/:id", function(req, content, cb) {
     Element.findById(req.params.id, function(err, element) {
         if (err) {
-            return res.status(500).send("Error occurred: database error.");
+            return cb({ "error": "Unable to retrieve element." });
         }
-        res.json({
+        cb(null, {
             "name": element.name,
             "description": element.description
         });
