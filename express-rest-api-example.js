@@ -65,6 +65,19 @@ app.post("/api/element", function(req, res) {
     });
 });
 
+//  View a specific element
+app.get("/api/element/:id", function(req, res) {
+    Element.findById(req.params.id, function(err, element) {
+        if (err) {
+            return res.status(500).send("Error occurred: database error.");
+        }
+        res.json({
+            "name": element.name,
+            "description": element.description
+        });
+    });
+});
+
 //  Custom 404 page
 app.use(function(req, res) {
     res.type("text/plain");
