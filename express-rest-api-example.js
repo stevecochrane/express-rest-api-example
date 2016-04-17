@@ -1,8 +1,11 @@
+var bodyParser     = require("body-parser");
 var compression    = require("compression");
 var cors           = require("cors");
 var express        = require("express");
 var slashes        = require("connect-slashes");
 var uncapitalize   = require("express-uncapitalize");
+
+var Element        = require("./models/element.js");
 
 var app = express();
 
@@ -24,8 +27,43 @@ app.use(slashes());
 //  Enforce lowercase for all URLs
 app.use(uncapitalize());
 
+//  Set up form handling
+app.use(bodyParser.urlencoded({ extended: true }));
+
 //  Enable CORS for just the /api directory
 app.use("/api", cors());
+
+//  View all elements
+app.get("/api/elements", function(req, res) {
+    Element.find({}, function(err, elements) {
+        if (err) {
+            return res.status(500).send("Error occurred: database error.");
+        }
+        res.json(elements.map(function(element) {
+            return {
+                "name": element.name,
+                "description": element.description
+            };
+        });
+    });
+});
+
+//  Post a new element
+app.post("/api/element", function(req, res) {
+    var element = new Element({
+        "name": req.body.name,
+        "description": req.body.description
+    });
+    element.save(function(err, element) {
+        if (err) {
+            return res.status(500).send("Error occurred: database error.");
+        }
+        res.json({
+            "name": element.name,
+            "description": element.description
+        });
+    });
+});
 
 //  Custom 404 page
 app.use(function(req, res) {
