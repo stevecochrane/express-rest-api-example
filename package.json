@@ -1,0 +1,14 @@
+{
+  "name": "express-rest-api-example",
+  "version": "0.0.0",
+  "description": "An example of a REST API built with Express.",
+  "main": "express-rest-api-example.js",
+  "author": "Steve Cochrane",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.6.1",
+    "connect-slashes": "^1.3.1",
+    "express": "^4.13.4",
+    "express-uncapitalize": "^1.0.0"
+  }
+}
