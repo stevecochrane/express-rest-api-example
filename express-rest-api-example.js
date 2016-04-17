@@ -1,4 +1,5 @@
 var compression    = require("compression");
+var cors           = require("cors");
 var express        = require("express");
 var slashes        = require("connect-slashes");
 var uncapitalize   = require("express-uncapitalize");
@@ -22,6 +23,9 @@ app.use(slashes());
 
 //  Enforce lowercase for all URLs
 app.use(uncapitalize());
+
+//  Enable CORS for just the /api directory
+app.use("/api", cors());
 
 //  Custom 404 page
 app.use(function(req, res) {
