@@ -2,12 +2,18 @@ var bodyParser     = require("body-parser");
 var compression    = require("compression");
 var cors           = require("cors");
 var express        = require("express");
+var mongoose       = require("mongoose");
 var Rest           = require("connect-rest");
 var slashes        = require("connect-slashes");
 var uncapitalize   = require("express-uncapitalize");
 
+//  Private credentials
+var credentials    = require('./credentials.js');
+
+//  Mongoose database schema
 var Element        = require("./models/element.js");
 
+//  Initialize Express
 var app = express();
 
 //  Treat "/foo" and "/Foo" as different URLs
@@ -39,6 +45,25 @@ app.use("/api", cors());
 var apiOptions = {
     "context": "/api"
 };
+
+//  Database configuration
+var dbOptions = {
+    server: {
+        socketOptions: { keepAlive: 1 }
+    }
+};
+
+//  Set up Mongo database connection
+switch(app.get("env")) {
+    case "development":
+        mongoose.connect(credentials.mongo.development.connectionString, dbOptions);
+        break;
+    case "production":
+        mongoose.connect(credentials.mongo.production.connectionString, dbOptions);
+        break;
+    default:
+        throw new Error("Unknown execution environment: " + app.get("env"));
+}
 
 //  Link API into pipeline
 var rest = Rest.create(apiOptions);
