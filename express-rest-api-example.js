@@ -1,7 +1,6 @@
 var bodyParser     = require("body-parser");
 var compression    = require("compression");
 var cors           = require("cors");
-var domain         = require("domain");
 var express        = require("express");
 var rest           = require("connect-rest");
 var slashes        = require("connect-slashes");
@@ -37,8 +36,7 @@ app.use("/api", cors());
 
 //  API configuration
 var apiOptions = {
-    "context": "/api",
-    "domain": domain.create()
+    "context": "/api"
 };
 
 //  Link API into pipeline
