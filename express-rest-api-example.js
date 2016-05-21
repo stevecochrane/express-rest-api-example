@@ -2,7 +2,7 @@ var bodyParser     = require("body-parser");
 var compression    = require("compression");
 var cors           = require("cors");
 var express        = require("express");
-var rest           = require("connect-rest");
+var Rest           = require("connect-rest");
 var slashes        = require("connect-slashes");
 var uncapitalize   = require("express-uncapitalize");
 
@@ -41,7 +41,8 @@ var apiOptions = {
 };
 
 //  Link API into pipeline
-app.use(rest.rester(apiOptions));
+var rest = Rest.create(apiOptions);
+app.use(rest.processRequest());
 
 //  View all elements
 rest.get("/elements", function(req, content, cb) {
