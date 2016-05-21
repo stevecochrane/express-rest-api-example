@@ -28,8 +28,9 @@ app.use(slashes());
 //  Enforce lowercase for all URLs
 app.use(uncapitalize());
 
-//  Set up form handling
+//  Set up processing of forms and JSON
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //  Enable CORS for just the /api directory
 app.use("/api", cors());
