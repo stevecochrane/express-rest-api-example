@@ -45,7 +45,7 @@ var rest = Rest.create(apiOptions);
 app.use(rest.processRequest());
 
 //  View all elements
-rest.get("/elements", function(req, content, cb) {
+rest.get("/elements/", function(req, content, cb) {
     Element.find({}, function(err, elements) {
         if (err) {
             return cb({ "error": "Internal error."});
@@ -60,7 +60,7 @@ rest.get("/elements", function(req, content, cb) {
 });
 
 //  Post a new element
-rest.post("/element", function(req, content, cb) {
+rest.post("/element/", function(req, content, cb) {
     var element = new Element({
         "name": req.body.name,
         "description": req.body.description
@@ -76,7 +76,7 @@ rest.post("/element", function(req, content, cb) {
 });
 
 //  View a specific element
-rest.get("/element/:id", function(req, content, cb) {
+rest.get("/element/:id/", function(req, content, cb) {
     Element.findById(req.params.id, function(err, element) {
         if (err) {
             return cb({ "error": "Unable to retrieve element." });
