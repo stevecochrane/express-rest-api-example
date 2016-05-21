@@ -8,7 +8,7 @@ var slashes        = require("connect-slashes");
 var uncapitalize   = require("express-uncapitalize");
 
 //  Private credentials
-var credentials    = require('./credentials.js');
+var credentials    = require("./credentials.js");
 
 //  Mongoose database schema
 var Element        = require("./models/element.js");
@@ -48,8 +48,10 @@ var apiOptions = {
 
 //  Database configuration
 var dbOptions = {
-    server: {
-        socketOptions: { keepAlive: 1 }
+    "server": {
+        "socketOptions": {
+            "keepAlive": 1
+        }
     }
 };
 
@@ -72,18 +74,18 @@ Element.find(function(err, elements) {
     }
 
     new Element({
-        name: "html",
-        description: "The html element represents the root of an HTML document."
+        "name": "html",
+        "description": "The html element represents the root of an HTML document."
     }).save();
 
     new Element({
-        name: "head",
-        description: "The head element represents a collection of metadata for the document."
+        "name": "head",
+        "description": "The head element represents a collection of metadata for the document."
     }).save();
 
     new Element({
-        name: "body",
-        description: "The body element represents the content of the document."
+        "name": "body",
+        "description": "The body element represents the content of the document."
     }).save();
 });
 
