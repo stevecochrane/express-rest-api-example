@@ -55,7 +55,7 @@ rest.get("/elements", function(req, content, cb) {
                 "name": element.name,
                 "description": element.description
             };
-        });
+        }));
     });
 });
 
