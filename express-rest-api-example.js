@@ -3,7 +3,6 @@ var compression    = require("compression");
 var cors           = require("cors");
 var express        = require("express");
 var mongoose       = require("mongoose");
-var uncapitalize   = require("express-uncapitalize");
 
 //  Private credentials
 var credentials    = require("./credentials.js");
@@ -25,9 +24,6 @@ app.set("port", process.env.PORT || 3000);
 
 //  Compress all requests
 app.use(compression());
-
-//  Enforce lowercase for all URLs
-app.use(uncapitalize());
 
 //  Set up processing of forms and JSON
 app.use(bodyParser.urlencoded({ extended: true }));

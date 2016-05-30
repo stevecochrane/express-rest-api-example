@@ -10,7 +10,6 @@
     "compression": "^1.6.1",
     "cors": "^2.7.1",
     "express": "^4.13.4",
-    "express-uncapitalize": "^1.0.0",
     "mongoose": "^4.4.12"
   }
 }
