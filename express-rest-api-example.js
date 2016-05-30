@@ -67,28 +67,6 @@ switch(app.get("env")) {
         throw new Error("Unknown execution environment: " + app.get("env"));
 }
 
-//  Initialize Elements
-Element.find(function(err, elements) {
-    if (elements.length) {
-        return;
-    }
-
-    new Element({
-        "name": "html",
-        "description": "The html element represents the root of an HTML document."
-    }).save();
-
-    new Element({
-        "name": "head",
-        "description": "The head element represents a collection of metadata for the document."
-    }).save();
-
-    new Element({
-        "name": "body",
-        "description": "The body element represents the content of the document."
-    }).save();
-});
-
 //  Link API into pipeline
 var rest = Rest.create(apiOptions);
 app.use(rest.processRequest());
