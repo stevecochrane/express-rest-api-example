@@ -97,6 +97,9 @@ router.route("/elements/:element_id")
         });
     });
 
+//  Register the API router and prefix its URLs with "/api"
+app.use("/api", router);
+
 //  Handle 404 errors
 app.use(function(req, res) {
     res.type("text/plain");
