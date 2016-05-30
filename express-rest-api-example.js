@@ -59,6 +59,16 @@ var router = express.Router();
 //  For routes ending with "/elements"
 router.route("/elements")
 
+    //  View all elements (accessed with GET at http://localhost:3000/api/elements)
+    .get(function(req, res) {
+        Element.find(function(err, elements) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(elements);
+        });
+    })
+
     //  Post a new element (accessed with POST at http://localhost:3000/api/elements)
     .post(function(req, res) {
         var element = new Element();
@@ -71,16 +81,6 @@ router.route("/elements")
                 res.send(err);
             }
             res.json({ "message": "Element created!" });
-        });
-    })
-
-    //  View all elements (accessed with GET at http://localhost:3000/api/elements)
-    .get(function(req, res) {
-        Element.find(function(err, elements) {
-            if (err) {
-                res.send(err);
-            }
-            res.json(elements);
         });
     });
 
