@@ -3,7 +3,6 @@ var compression    = require("compression");
 var cors           = require("cors");
 var express        = require("express");
 var mongoose       = require("mongoose");
-var slashes        = require("connect-slashes");
 var uncapitalize   = require("express-uncapitalize");
 
 //  Private credentials
@@ -26,9 +25,6 @@ app.set("port", process.env.PORT || 3000);
 
 //  Compress all requests
 app.use(compression());
-
-//  Enforce trailing slashes for all URLs
-app.use(slashes());
 
 //  Enforce lowercase for all URLs
 app.use(uncapitalize());
@@ -64,10 +60,10 @@ switch(app.get("env")) {
 //  Set up our router
 var router = express.Router();
 
-//  For routes ending with "/elements/"
-router.route("/elements/")
+//  For routes ending with "/elements"
+router.route("/elements")
 
-    //  Post a new element (accessed with POST at http://localhost:3000/api/elements/)
+    //  Post a new element (accessed with POST at http://localhost:3000/api/elements)
     .post(function(req, res) {
         var element = new Element();
         element.name = req.body.name;
@@ -82,7 +78,7 @@ router.route("/elements/")
         });
     })
 
-    //  View all elements (accessed with GET at http://localhost:3000/api/elements/)
+    //  View all elements (accessed with GET at http://localhost:3000/api/elements)
     .get(function(req, res) {
         Element.find(function(err, elements) {
             if (err) {
@@ -92,10 +88,10 @@ router.route("/elements/")
         });
     });
 
-//  For routes ending with "/elements/:element_id/"
-router.route("/elements/:element_id/")
+//  For routes ending with "/elements/:element_id"
+router.route("/elements/:element_id")
 
-    //  View a specific element (accessed with GET at http://localhost:3000/api/elements/:element_id/)
+    //  View a specific element (accessed with GET at http://localhost:3000/api/elements/:element_id)
     .get(function(req, res) {
         Element.findById(req.params.element_id, function(err, element) {
             if (err) {
