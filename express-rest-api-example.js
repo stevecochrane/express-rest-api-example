@@ -3,7 +3,6 @@ var compression    = require("compression");
 var cors           = require("cors");
 var express        = require("express");
 var mongoose       = require("mongoose");
-var Rest           = require("connect-rest");
 var slashes        = require("connect-slashes");
 var uncapitalize   = require("express-uncapitalize");
 
@@ -41,11 +40,6 @@ app.use(bodyParser.json());
 //  Enable CORS for just the /api directory
 app.use("/api", cors());
 
-//  API configuration
-var apiOptions = {
-    "context": "/api"
-};
-
 //  Database configuration
 var dbOptions = {
     "server": {
@@ -67,62 +61,58 @@ switch(app.get("env")) {
         throw new Error("Unknown execution environment: " + app.get("env"));
 }
 
-//  Link API into pipeline
-var rest = Rest.create(apiOptions);
-app.use(rest.processRequest());
+//  Set up our router
+var router = express.Router();
 
-//  View all elements
-rest.get("/elements/", function(req, content, cb) {
-    Element.find({}, function(err, elements) {
-        if (err) {
-            return cb({ "error": "Internal error."});
-        }
-        cb(null, elements.map(function(element) {
-            return {
-                "name": element.name,
-                "description": element.description
-            };
-        }));
-    });
-});
+//  For routes ending with "/elements/"
+router.route("/elements/")
 
-//  Post a new element
-rest.post("/element/", function(req, content, cb) {
-    var element = new Element({
-        "name": req.body.name,
-        "description": req.body.description
-    });
-    element.save(function(err, element) {
-        if (err) {
-            return cb({ "error": "Unable to add element." });
-        }
-        cb(null, {
-            "id": element._id
+    //  Post a new element (accessed with POST at http://localhost:3000/api/elements/)
+    .post(function(req, res) {
+        var element = new Element();
+        element.name = req.body.name;
+        element.description = req.body.description;
+
+        // save the element and check for errors
+        element.save(function(err) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ "message": "Element created!" });
+        });
+    })
+
+    //  View all elements (accessed with GET at http://localhost:3000/api/elements/)
+    .get(function(req, res) {
+        Element.find(function(err, elements) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(elements);
         });
     });
-});
 
-//  View a specific element
-rest.get("/element/:id/", function(req, content, cb) {
-    Element.findById(req.params.id, function(err, element) {
-        if (err) {
-            return cb({ "error": "Unable to retrieve element." });
-        }
-        cb(null, {
-            "name": element.name,
-            "description": element.description
+//  For routes ending with "/elements/:element_id/"
+router.route("/elements/:element_id/")
+
+    //  View a specific element (accessed with GET at http://localhost:3000/api/elements/:element_id/)
+    .get(function(req, res) {
+        Element.findById(req.params.element_id, function(err, element) {
+            if (err) {
+                res.send(err);
+            }
+            res.json(element);
         });
     });
-});
 
-//  Custom 404 page
+//  Handle 404 errors
 app.use(function(req, res) {
     res.type("text/plain");
     res.status(404);
     res.send("404 - Not Found");
 });
 
-//  Custom 500 page
+//  Handle 500 errors
 app.use(function(err, req, res, next) {
     console.error(err.stack);
     res.type("text/plain");
