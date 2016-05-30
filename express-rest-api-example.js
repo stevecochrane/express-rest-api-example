@@ -113,6 +113,18 @@ router.route("/elements/:element_id")
                 res.json({ "message": "Element updated!" });
             });
         });
+    })
+
+    //  Delete a specific element (accessed with DELETE at http://localhost:3000/api/elements/:element_id)
+    .delete(function(req, res) {
+        Element.remove({
+            "_id": req.params.element_id
+        }, function(err, element) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ "message": "Element deleted!" })
+        });
     });
 
 //  Register the API router and prefix its URLs with "/api"
