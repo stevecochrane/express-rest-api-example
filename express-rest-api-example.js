@@ -69,7 +69,7 @@ router.route("/elements")
         });
     })
 
-    //  Post a new element (accessed with POST at http://localhost:3000/api/elements)
+    //  Add a new element (accessed with POST at http://localhost:3000/api/elements)
     .post(function(req, res) {
         var element = new Element();
         element.name = req.body.name;
