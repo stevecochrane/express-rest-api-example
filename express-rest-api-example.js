@@ -75,7 +75,6 @@ router.route("/elements")
         element.name = req.body.name;
         element.description = req.body.description;
 
-        // save the element and check for errors
         element.save(function(err) {
             if (err) {
                 res.send(err);
@@ -94,6 +93,25 @@ router.route("/elements/:element_id")
                 res.send(err);
             }
             res.json(element);
+        });
+    })
+
+    //  Update a specific element (accessed with PUT at http://localhost:3000/api/elements/:element_id)
+    .put(function(req, res) {
+        Element.findById(req.params.element_id, function(err, element) {
+            if (err) {
+                res.send(err);
+            }
+
+            element.name = req.body.name;
+            element.description = req.body.description;
+
+            element.save(function(err) {
+                if (err) {
+                    res.send(err);
+                }
+                res.json({ "message": "Element updated!" });
+            });
         });
     });
 
