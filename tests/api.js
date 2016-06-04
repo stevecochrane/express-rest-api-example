@@ -22,8 +22,8 @@ suite("API Tests", function() {
         restler.post(baseUrl + "/api/elements", { "data": element }).on("success", function(data) {
             assert.isDefined(data.id, "data.id is defined");
             restler.get(baseUrl + "/api/element/" + data.id).on("success", function(data) {
-                assert(data.name === element.name);
-                assert(data.description === element.description);
+                assert(data.name === element.name, "New element name is consistent with what was submitted");
+                assert(data.description === element.description, "New element description is consistent with what was submitted");
                 done();
             });
         });
