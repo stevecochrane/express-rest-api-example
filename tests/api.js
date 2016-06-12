@@ -12,10 +12,21 @@ describe("Element API", function() {
     var baseUrl = "http://localhost:3000";
 
     describe("Create", function() {
+        var newElement;
+
         it("Should be able to create a new element", function(done) {
-            restler.post(baseUrl + "/api/elements", { "data": testElement }).on("success", function(data) {
-                assert.isDefined(data.element._id, "The new element's ID is defined");
+            restler.post(baseUrl + "/api/elements", { "data": testElement }).on("complete", function(result, response) {
+                newElement = result.element;
+                assert.isDefined(newElement._id, "The new element's ID is defined");
                 done();
+            });
+        });
+
+        after("Clean up by deleting the new test element", function() {
+            restler.del(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
+                if (result instanceof Error) {
+                    console.log("Error: ", result.message);
+                }
             });
         });
     });
