@@ -72,7 +72,26 @@ describe("Element API", function() {
     });
 
     describe("Delete", function() {
-        it("Should be able to delete an element");
+        var newElement;
+
+        before("Set up by creating a new element for this test", function(done) {
+            restler.post(baseUrl + "/api/elements", { "data": testElement }).on("complete", function(result, response) {
+                if (result instanceof Error) {
+                    console.log("Error: ", result.message);
+                }
+                newElement = result.element;
+                done();
+            });
+        });
+
+        it("Should be able to delete an element", function(done) {
+            restler.del(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
+                if (result instanceof Error) {
+                    console.log("Error: ", result.message);
+                }
+                done();
+            });
+        });
     });
 
 });
