@@ -16,13 +16,16 @@ describe("Element API", function() {
 
         it("Should be able to create a new element", function(done) {
             restler.post(baseUrl + "/api/elements", { "data": testElement }).on("complete", function(result, response) {
+                if (result instanceof Error) {
+                    console.log("Error: ", result.message);
+                }
                 newElement = result.element;
                 assert.isDefined(newElement._id, "The new element's ID is defined");
                 done();
             });
         });
 
-        after("Clean up by deleting the new test element", function() {
+        after("Tear down by deleting the new test element", function() {
             restler.del(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
                 if (result instanceof Error) {
                     console.log("Error: ", result.message);
@@ -32,14 +35,34 @@ describe("Element API", function() {
     });
 
     describe("Read", function() {
+        var newElement;
+
+        before("Set up by creating a new element for this test", function(done) {
+            restler.post(baseUrl + "/api/elements", { "data": testElement }).on("complete", function(result, response) {
+                if (result instanceof Error) {
+                    console.log("Error: ", result.message);
+                }
+                newElement = result.element;
+                done();
+            });
+        });
+
         it("Should be able to read an existing element", function(done) {
-            restler.post(baseUrl + "/api/elements", { "data": testElement }).on("success", function(data) {
-                assert.isDefined(data.element._id, "The new element's ID is defined");
-                restler.get(baseUrl + "/api/element/" + data.element._id).on("success", function(data) {
-                    assert(data.element.name === testElement.name, "New element name is consistent with what was submitted");
-                    assert(data.element.description === testElement.description, "New element description is consistent with what was submitted");
-                    done();
-                });
+            restler.get(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
+                if (result instanceof Error) {
+                    console.log("Error: ", result.message);
+                }
+                assert(result.name === newElement.name, "New element name is consistent with what was submitted");
+                assert(result.description === newElement.description, "New element description is consistent with what was submitted");
+                done();
+            });
+        });
+
+        after("Tear down by deleting the new test element", function() {
+            restler.del(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
+                if (result instanceof Error) {
+                    console.log("Error: ", result.message);
+                }
             });
         });
     });
