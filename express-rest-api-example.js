@@ -79,7 +79,10 @@ router.route("/elements")
             if (err) {
                 res.send(err);
             }
-            res.json({ "message": "Element created!" });
+            res.json({
+                "message": "Element created!",
+                "element": element
+            });
         });
     });
 
@@ -110,7 +113,10 @@ router.route("/elements/:element_id")
                 if (err) {
                     res.send(err);
                 }
-                res.json({ "message": "Element updated!" });
+                res.json({
+                    "message": "Element updated!",
+                    "element": element
+                });
             });
         });
     })
@@ -123,7 +129,9 @@ router.route("/elements/:element_id")
             if (err) {
                 res.send(err);
             }
-            res.json({ "message": "Element deleted!" })
+            res.json({
+                "message": "Element deleted!"
+            });
         });
     });
 
