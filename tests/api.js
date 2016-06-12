@@ -68,7 +68,40 @@ describe("Element API", function() {
     });
 
     describe("Update", function() {
-        it("Should be able to update an existing element");
+        var newElement;
+        var updatedElement = {
+            "name": "This is a new name.",
+            "description": "This is a new description."
+        };
+
+        before("Set up by creating a new element for this test", function(done) {
+            restler.post(baseUrl + "/api/elements", { "data": testElement }).on("complete", function(result, response) {
+                if (result instanceof Error) {
+                    console.log("Error: ", result.message);
+                }
+                newElement = result.element;
+                done();
+            });
+        });
+
+        it("Should be able to update an existing element", function(done) {
+            restler.put(baseUrl + "/api/elements/" + newElement._id, { data: updatedElement }).on("complete", function(result, response) {
+                if (result instanceof Error) {
+                    console.log("Error: ", result.message);
+                }
+                assert(result.element.name === updatedElement.name, "New element name is consistent with what was submitted");
+                assert(result.element.description === updatedElement.description, "New element description is consistent with what was submitted");
+                done();
+            });
+        });
+
+        after("Tear down by deleting the new test element", function() {
+            restler.del(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
+                if (result instanceof Error) {
+                    console.log("Error: ", result.message);
+                }
+            });
+        });
     });
 
     describe("Delete", function() {
