@@ -35,6 +35,13 @@ npm install
 node express-rest-api-example.js
 ```
 
+Testing is still a work in progress, but when you have the above service running, you can then run the Mocha test suite
+from the project root directory like so:
+
+```bash
+mocha tests
+```
+
 ### Supported Routes
 
 Once the application is running, the following routes are available:
