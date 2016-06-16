@@ -11,6 +11,14 @@ describe("Element API", function() {
 
     var baseUrl = "http://localhost:3000";
 
+    function tearDownTestElement(newElement) {
+        restler.del(baseUrl + "/api/element/" + newElement._id).on("complete", function(result, response) {
+            if (result instanceof Error) {
+                console.log("Error: ", result.message);
+            }
+        });
+    }
+
     describe("Create", function() {
         var newElement;
 
@@ -26,11 +34,7 @@ describe("Element API", function() {
         });
 
         after("Tear down by deleting the new test element", function() {
-            restler.del(baseUrl + "/api/element/" + newElement._id).on("complete", function(result, response) {
-                if (result instanceof Error) {
-                    console.log("Error: ", result.message);
-                }
-            });
+            tearDownTestElement(newElement);
         });
     });
 
@@ -59,11 +63,7 @@ describe("Element API", function() {
         });
 
         after("Tear down by deleting the new test element", function() {
-            restler.del(baseUrl + "/api/element/" + newElement._id).on("complete", function(result, response) {
-                if (result instanceof Error) {
-                    console.log("Error: ", result.message);
-                }
-            });
+            tearDownTestElement(newElement);
         });
     });
 
@@ -96,11 +96,7 @@ describe("Element API", function() {
         });
 
         after("Tear down by deleting the new test element", function() {
-            restler.del(baseUrl + "/api/element/" + newElement._id).on("complete", function(result, response) {
-                if (result instanceof Error) {
-                    console.log("Error: ", result.message);
-                }
-            });
+            tearDownTestElement(newElement);
         });
     });
 
