@@ -87,7 +87,7 @@ router.route("/elements")
     });
 
 //  For routes ending with "/elements/:element_id"
-router.route("/elements/:element_id")
+router.route("/element/:element_id")
 
     //  View a specific element (accessed with GET at http://localhost:3000/api/elements/:element_id)
     .get(function(req, res) {
