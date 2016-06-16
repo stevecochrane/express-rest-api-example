@@ -26,7 +26,7 @@ describe("Element API", function() {
         });
 
         after("Tear down by deleting the new test element", function() {
-            restler.del(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
+            restler.del(baseUrl + "/api/element/" + newElement._id).on("complete", function(result, response) {
                 if (result instanceof Error) {
                     console.log("Error: ", result.message);
                 }
@@ -48,7 +48,7 @@ describe("Element API", function() {
         });
 
         it("Should be able to read an existing element", function(done) {
-            restler.get(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
+            restler.get(baseUrl + "/api/element/" + newElement._id).on("complete", function(result, response) {
                 if (result instanceof Error) {
                     console.log("Error: ", result.message);
                 }
@@ -59,7 +59,7 @@ describe("Element API", function() {
         });
 
         after("Tear down by deleting the new test element", function() {
-            restler.del(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
+            restler.del(baseUrl + "/api/element/" + newElement._id).on("complete", function(result, response) {
                 if (result instanceof Error) {
                     console.log("Error: ", result.message);
                 }
@@ -85,7 +85,7 @@ describe("Element API", function() {
         });
 
         it("Should be able to update an existing element", function(done) {
-            restler.put(baseUrl + "/api/elements/" + newElement._id, { data: updatedElement }).on("complete", function(result, response) {
+            restler.put(baseUrl + "/api/element/" + newElement._id, { data: updatedElement }).on("complete", function(result, response) {
                 if (result instanceof Error) {
                     console.log("Error: ", result.message);
                 }
@@ -96,7 +96,7 @@ describe("Element API", function() {
         });
 
         after("Tear down by deleting the new test element", function() {
-            restler.del(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
+            restler.del(baseUrl + "/api/element/" + newElement._id).on("complete", function(result, response) {
                 if (result instanceof Error) {
                     console.log("Error: ", result.message);
                 }
@@ -118,7 +118,7 @@ describe("Element API", function() {
         });
 
         it("Should be able to delete an element", function(done) {
-            restler.del(baseUrl + "/api/elements/" + newElement._id).on("complete", function(result, response) {
+            restler.del(baseUrl + "/api/element/" + newElement._id).on("complete", function(result, response) {
                 if (result instanceof Error) {
                     console.log("Error: ", result.message);
                 }
