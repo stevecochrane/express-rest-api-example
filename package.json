@@ -1,6 +1,6 @@
 {
   "name": "express-rest-api-example",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "An example of a REST API built with Express, for self-education.",
   "main": "express-rest-api-example.js",
   "author": "Steve Cochrane",
