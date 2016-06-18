@@ -10,6 +10,9 @@
     "compression": "^1.6.1",
     "cors": "^2.7.1",
     "express": "^4.13.4",
+    "gulp": "^3.9.1",
+    "gulp-hub": "^0.8.0",
+    "gulp-mocha": "^2.2.0",
     "mongoose": "^4.4.12"
   },
   "devDependencies": {
