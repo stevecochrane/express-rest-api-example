@@ -12,6 +12,7 @@
     "express": "^4.13.4",
     "gulp": "^3.9.1",
     "gulp-mocha": "^2.2.0",
+    "gulp-nodemon": "^2.1.0",
     "mongoose": "^4.4.12",
     "require-dir": "^0.3.0"
   },

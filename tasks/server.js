@@ -1,10 +1,11 @@
-var exec = require("child_process").exec;
-var gulp = require("gulp");
+var gulp    = require("gulp");
+var nodemon = require("gulp-nodemon");
 
-gulp.task("server", function (cb) {
-    exec("node express-rest-api-example.js", function (err, stdout, stderr) {
-        console.log(stdout);
-        console.log(stderr);
-        cb(err);
+//  Start our server, and restart it when any changes are made to the watched files.
+gulp.task("server", function() {
+    nodemon({
+        script: "express-rest-api-example.js",
+        tasks: ["tests"],
+        watch: ["express-rest-api-example.js"]
     });
 });
