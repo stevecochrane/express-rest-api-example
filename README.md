@@ -32,11 +32,13 @@ directory with a command line interface and do this:
 
 ```bash
 npm install
-node express-rest-api-example.js
+gulp
 ```
 
-Testing is still a work in progress, but when you have the above service running, you can then run the Mocha test suite
-from the project root directory like so:
+That will start the API server, and the main `express-rest-api-example.js` file will also be watched for changes. When
+any changes are saved, the [Mocha](http://mochajs.org/) test suite will run to test those changes. The test suite can
+also be run manually (assuming the API server is already running) from the project root directory like so, if you have
+Mocha globally installed:
 
 ```bash
 mocha tests
