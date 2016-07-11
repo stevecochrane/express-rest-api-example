@@ -4,10 +4,7 @@ var cors           = require("cors");
 var express        = require("express");
 var mongoose       = require("mongoose");
 
-//  Private credentials
 var credentials    = require("./credentials.js");
-
-//  Router
 var router         = require("./router.js");
 
 //  Initialize Express
