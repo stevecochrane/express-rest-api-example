@@ -1,25 +1,25 @@
 var express = require("express");
 var router  = express.Router();
 
-var api = require("./api.js");
+var elements = require("./elements.js");
 
 router.route("/elements")
 
     //  View all elements (accessed with GET at http://localhost:3000/api/elements)
-    .get(api.viewAllElements)
+    .get(elements.viewAllElements)
 
     //  Add a new element (accessed with POST at http://localhost:3000/api/elements)
-    .post(api.addElement);
+    .post(elements.addElement);
 
 router.route("/element/:element_id")
 
     //  View a specific element (accessed with GET at http://localhost:3000/api/elements/:element_id)
-    .get(api.viewElement)
+    .get(elements.viewElement)
 
     //  Update a specific element (accessed with PUT at http://localhost:3000/api/elements/:element_id)
-    .put(api.updateElement)
+    .put(elements.updateElement)
 
     //  Delete a specific element (accessed with DELETE at http://localhost:3000/api/elements/:element_id)
-    .delete(api.deleteElement);
+    .delete(elements.deleteElement);
 
 module.exports = router;
