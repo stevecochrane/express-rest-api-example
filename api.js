@@ -1,7 +1,7 @@
 //  Mongoose database schema
 var Element = require("./models/element.js");
 
-module.exports = {
+var api = {
 
     viewAllElements: function(req, res) {
         Element.find(function(err, elements) {
@@ -72,3 +72,5 @@ module.exports = {
     }
 
 };
+
+module.exports = api;
