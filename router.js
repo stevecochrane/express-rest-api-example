@@ -3,7 +3,6 @@ var router  = express.Router();
 
 var api = require("./api.js");
 
-//  For routes ending with "/elements"
 router.route("/elements")
 
     //  View all elements (accessed with GET at http://localhost:3000/api/elements)
@@ -12,7 +11,6 @@ router.route("/elements")
     //  Add a new element (accessed with POST at http://localhost:3000/api/elements)
     .post(api.addElement);
 
-//  For routes ending with "/elements/:element_id"
 router.route("/element/:element_id")
 
     //  View a specific element (accessed with GET at http://localhost:3000/api/elements/:element_id)
