@@ -6,6 +6,7 @@
   "author": "Steve Cochrane",
   "license": "MIT",
   "dependencies": {
+    "apicache": "^0.7.2",
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
     "cors": "^2.7.1",
