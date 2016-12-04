@@ -37,6 +37,8 @@ exports.addElement = function(req, res) {
 };
 
 exports.viewElement = function(req, res) {
+    req.apicacheGroup = req.params.collection;
+
     Element.findById(req.params.element_id, function(err, element) {
         if (err) {
             res.send(err);
@@ -46,6 +48,8 @@ exports.viewElement = function(req, res) {
 };
 
 exports.updateElement = function(req, res) {
+    apicache.clear(req.params.collection);
+
     Element.findById(req.params.element_id, function(err, element) {
         if (err) {
             res.send(err);
@@ -67,6 +71,8 @@ exports.updateElement = function(req, res) {
 };
 
 exports.deleteElement = function(req, res) {
+    apicache.clear(req.params.collection);
+
     Element.remove({
         "_id": req.params.element_id
     }, function(err, element) {
