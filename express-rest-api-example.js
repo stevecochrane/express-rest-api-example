@@ -1,4 +1,3 @@
-var apicache       = require("apicache");
 var bodyParser     = require("body-parser");
 var compression    = require("compression");
 var cors           = require("cors");
@@ -10,10 +9,6 @@ var router      = require("./router.js");
 
 //  Initialize Express
 var app = express();
-
-//  Initialize apicache
-var cache = apicache.middleware;
-apicache.options({ debug: true });
 
 //  Treat "/foo" and "/Foo" as different URLs
 app.set("case sensitive routing", true);
@@ -54,9 +49,6 @@ switch(app.get("env")) {
     default:
         throw new Error("Unknown execution environment: " + app.get("env"));
 }
-
-//  Cache all routes for 5 minutes (just an introductory test)
-app.use(cache("5 minutes"));
 
 //  Register the API router and prefix its URLs with "/api"
 app.use("/api", router);
