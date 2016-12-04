@@ -19,7 +19,7 @@ router.route("/elements")
 router.route("/element/:element_id")
 
     //  View a specific element (accessed with GET at http://localhost:3000/api/elements/:element_id)
-    .get(elements.viewElement)
+    .get(cache("5 minutes"), elements.viewElement)
 
     //  Update a specific element (accessed with PUT at http://localhost:3000/api/elements/:element_id)
     .put(elements.updateElement)
