@@ -1,7 +1,15 @@
+var apicache = require("apicache");
+
+//  Initialize apicache
+var cache = apicache.middleware;
+apicache.options({ debug: true });
+
 //  Mongoose database schema
 var Element = require("./models/element.js");
 
 exports.viewAllElements = function(req, res) {
+    req.apicacheGroup = req.params.collection;
+
     Element.find(function(err, elements) {
         if (err) {
             res.send(err);
@@ -11,6 +19,8 @@ exports.viewAllElements = function(req, res) {
 };
 
 exports.addElement = function(req, res) {
+    apicache.clear(req.params.collection);
+
     var element = new Element();
     element.name = req.body.name;
     element.description = req.body.description;
