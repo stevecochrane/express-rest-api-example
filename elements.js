@@ -8,7 +8,7 @@ apicache.options({ debug: true });
 var Element = require("./models/element.js");
 
 exports.viewAllElements = function(req, res) {
-    req.apicacheGroup = req.params.collection;
+    req.apicacheGroup = "elements";
 
     Element.find(function(err, elements) {
         if (err) {
@@ -19,7 +19,7 @@ exports.viewAllElements = function(req, res) {
 };
 
 exports.addElement = function(req, res) {
-    apicache.clear(req.params.collection);
+    apicache.clear("elements");
 
     var element = new Element();
     element.name = req.body.name;
@@ -37,7 +37,7 @@ exports.addElement = function(req, res) {
 };
 
 exports.viewElement = function(req, res) {
-    req.apicacheGroup = req.params.collection;
+    req.apicacheGroup = req.params.element_id;
 
     Element.findById(req.params.element_id, function(err, element) {
         if (err) {
@@ -48,7 +48,8 @@ exports.viewElement = function(req, res) {
 };
 
 exports.updateElement = function(req, res) {
-    apicache.clear(req.params.collection);
+    apicache.clear(req.params.element_id);
+    apicache.clear("elements");
 
     Element.findById(req.params.element_id, function(err, element) {
         if (err) {
@@ -71,7 +72,8 @@ exports.updateElement = function(req, res) {
 };
 
 exports.deleteElement = function(req, res) {
-    apicache.clear(req.params.collection);
+    apicache.clear(req.params.element_id);
+    apicache.clear("elements");
 
     Element.remove({
         "_id": req.params.element_id
