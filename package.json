@@ -1,8 +1,8 @@
 {
-  "name": "express-rest-api-example",
+  "name": "html-reference-api",
   "version": "1.2.0",
   "description": "An example of a REST API built with Express, for self-education.",
-  "main": "express-rest-api-example.js",
+  "main": "html-reference-api.js",
   "author": "Steve Cochrane",
   "license": "MIT",
   "dependencies": {

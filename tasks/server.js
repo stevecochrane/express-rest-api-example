@@ -4,8 +4,8 @@ var nodemon = require("gulp-nodemon");
 //  Start our server, and restart it when any changes are made to the watched files.
 gulp.task("server", function() {
     nodemon({
-        script: "express-rest-api-example.js",
+        script: "html-reference-api.js",
         tasks: ["tests"],
-        watch: ["express-rest-api-example.js"]
+        watch: ["html-reference-api.js"]
     });
 });

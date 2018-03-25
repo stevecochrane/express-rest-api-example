@@ -1,12 +1,14 @@
-# express-rest-api-example
+# HTML Reference API
 
 An example of a REST API built with Express and MongoDB, for self-education. A lot of this was learned from the book
 [Web Development with Node & Express](http://shop.oreilly.com/product/0636920032977.do) by Ethan Brown, and the article
 [Build a RESTful API Using Node and Express 4](https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4)
 by Chris Sevilleja.
 
-This simply returns JSON and there isn't a front-end made for it yet. Currently it's used to store data on HTML
-elements (html, head, body, etc.) though the only data stored at the moment is a name and description for each element.
+This simply returns JSON; for the associated front-end client, check out
+[html-reference-webapp](https://github.com/stevecochrane/html-reference-webapp). Currently it's used to store data on
+HTML elements (html, head, body, etc.) though the only data stored at the moment is a name and description for each
+element.
 
 ### Setup
 
@@ -35,7 +37,7 @@ npm install
 gulp
 ```
 
-That will start the API server, and the main `express-rest-api-example.js` file will also be watched for changes. When
+That will start the API server, and the main `html-reference-api.js` file will also be watched for changes. When
 any changes are saved, the [Mocha](http://mochajs.org/) test suite will run to test those changes. The test suite can
 also be run manually (assuming the API server is already running) from the project root directory like so, if you have
 Mocha globally installed:
